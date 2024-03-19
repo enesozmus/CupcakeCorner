@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         // → A view that displays a root view and enables you to present additional views over the root view.
-        //→ Use a navigation stack to present a stack of views over a root view.
+        // → Use a navigation stack to present a stack of views over a root view.
         NavigationStack {
             Form {
                 
@@ -40,9 +40,10 @@ struct ContentView: View {
                 
                 // ...
                 Section {
+                    // → You can add views to the top of the stack by clicking or tapping a NavigationLink.
+                    // → And you can remove views using built-in, platform-appropriate controls, like a "back button" or a "swipe gesture".
                     NavigationLink("Delivery details") {
-                        Text("...")
-                        // AddressView(order: order)
+                        AddressView(order: order)
                     }
                 }
                 
