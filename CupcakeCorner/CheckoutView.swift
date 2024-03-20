@@ -13,6 +13,8 @@ struct CheckoutView: View {
     
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
+    // MARK: - If our call to placeOrder() function fails, show an informative alert for the user.
+    @State private var isShowingFailureMessage = false
     var currencyCode: Decimal.FormatStyle.Currency { .currency(code: Locale.current.currency?.identifier ?? "USD")
     }
             
@@ -61,6 +63,11 @@ struct CheckoutView: View {
                         //→ The Task the closure is marked with the async keyword, and the await the keyword is used to wait for the result of the asynchronous operation.
                         await placeOrder()
                     }
+                }
+                .alert("Uh-oh, something went wrong!", isPresented: $isShowingFailureMessage) {
+                    Button("OK") { }
+                } message: {
+                    Text("Please check your internet connection or try again later.")
                 }
                 .padding()
             }
@@ -135,8 +142,8 @@ struct CheckoutView: View {
             // → So, if our download succeeds our data constant will be set to whatever data was sent back from the URL,
             // → but if it fails for any reason our code prints “Invalid data” and does nothing else.
             print("Check out failed: \(error.localizedDescription)")
+            isShowingFailureMessage = true
         }
-        
     }
 }
 
