@@ -60,12 +60,23 @@ class Order: Codable {
     var city = ""
     var zip = ""
     
+    // MARK: - Improve the validation
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
-            return false
-        }
-        
-        return true
+        return (anyFieldIsEmpty || anyFieldContainsOnlyWhiteSpaces) ? false : true
+    }
+    
+    private var anyFieldIsEmpty: Bool {
+        name.isEmpty
+        || streetAddress.isEmpty
+        || city.isEmpty
+        || zip.isEmpty
+    }
+    
+    private var anyFieldContainsOnlyWhiteSpaces: Bool {
+        name.trimmingCharacters(in: .whitespaces) == ""
+        || streetAddress.trimmingCharacters(in: .whitespaces) == ""
+        || city.trimmingCharacters(in: .whitespaces) == ""
+        || zip.trimmingCharacters(in: .whitespaces) == ""
     }
     
     var cost: Decimal {
