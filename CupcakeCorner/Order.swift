@@ -7,6 +7,9 @@
 
 import Foundation
 
+// → We’re going to have a single class that stores all our data, which will be passed from screen to screen.
+// → This means all screens in our app share the same data, which will work really well as you’ll see.
+
 // → Defines and implements conformance of the Observable protocol.
 // → This macro adds observation support to a custom type and conforms the type to the Observable protocol.
 @Observable
@@ -14,6 +17,7 @@ class Order: Codable {
     // → A type that can be used as a key for encoding and decoding.
     // → Thanks to CodingKeys, we can visually change the names of the properties used in a model.
     enum CodingKeys: String, CodingKey {
+        // → When you're working with a real server these names matter – you need to send the actual names up, rather than the weird versions produced by the @Observable macro.
         case _type = "type"
         case _quantity = "quantity"
         case _specialRequestEnabled = "specialRequestEnabled"
@@ -25,6 +29,7 @@ class Order: Codable {
         case _zip = "zip"
     }
     
+    // → This is a bad idea for mutable arrays because the order of your array can change at any time, but here our array order won’t ever change so it’s safe.
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
     var type = 0

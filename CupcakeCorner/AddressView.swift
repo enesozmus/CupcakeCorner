@@ -26,10 +26,10 @@ struct AddressView: View {
             // ...
             Section {
                 NavigationLink("Check out") {
-                    Text("...")
-                    // CheckoutView(order: order)
+                    CheckoutView(order: order)
                 }
             }
+            // → Adds a condition that controls whether users can interact with this view.
             .disabled(order.hasValidAddress == false)
         }
         .navigationTitle("Delivery details")
